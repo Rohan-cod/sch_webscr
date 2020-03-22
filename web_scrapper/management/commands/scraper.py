@@ -16,6 +16,7 @@ class Command(BaseCommand):
 		job_elems = results.find_all('section', class_='card-content')
 		for job_elem in job_elems:
 			title_elem = job_elem.find('h2', class_='title')
+			url_elm = job_elem.find('a')
 			company_elem = job_elem.find('div', class_='company')
 			location_elem = job_elem.find('div', class_='location')
 			if None in (title_elem, company_elem, location_elem):
@@ -23,12 +24,14 @@ class Command(BaseCommand):
 			title=title_elem.text.strip()
 			company=company_elem.text.strip()
 			location=location_elem.text.strip()
+			url=url_elm['href']
 			print(title,company,location)
 			try:
 				Job_posting.objects.create(
 						title=title,
 						company=company,
-						location=location
+						location=location,
+						url=url
 					)
 			except:
 				pass
