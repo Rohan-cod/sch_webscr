@@ -1,0 +1,1 @@
+web: gunicorn sch_webscr.wsgi --log-file -
